@@ -1,30 +1,28 @@
 import 'package:flutter/material.dart';
 
 class MyAppBar extends StatelessWidget{
-  MyAppBar({this.title});
-  final Widget title;
+  MyAppBar({this.title});//构造方法？
 
+  final Widget title;
   @override
   Widget build(BuildContext context){
     return new Container(
-      height: 50.0,
+      height: 56.0,
       padding: const EdgeInsets.symmetric(horizontal:8.0),
-      decoration: new BoxDecoration(color:Colors.red[500]),//这个颜色后边的中括号是干嘛的
-
+      decoration: new BoxDecoration(color:Colors.red[600]),
       child: new Row(
-        children: <Widget>[
+        children:<Widget>[
           new IconButton(
             icon: new Icon(Icons.menu),
-            tooltip: 'Navigatio menu',
-            onPressed: null,//null 会禁用button
+            tooltip: 'Navigation menu',
+            onPressed: null,
           ),
-
           new Expanded(
             child: title,
           ),
           new IconButton(
             icon: new Icon(Icons.search),
-            tooltip: 'Search',
+            tooltip: "Search",
             onPressed: null,
           ),
         ],
@@ -33,35 +31,32 @@ class MyAppBar extends StatelessWidget{
   }
 }
 
-
 class MyScaffold extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return new Material(
-      child: Column(
+      child: new Column(
         children:<Widget>[
           new MyAppBar(
-            
             title:new Text(
-              'title',
-              style:Theme.of(context).primaryTextTheme.title,
+              "事例标题",
+              style: Theme.of(context).primaryTextTheme.title,
             ),
           ),
           new Expanded(
             child: new Center(
-              child:new Text('hellodede')
+              child:new Text('Hello,world'),
             ),
           ),
         ],
       ),
     );
-
   }
 }
 
 void main(){
   runApp(new MaterialApp(
-    title:'myapp2',
+    title:"My App2",
     home:new MyScaffold(),
   ));
 }
