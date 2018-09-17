@@ -1,38 +1,18 @@
 import 'package:flutter/material.dart';
 
-void main(){
-  runApp(new MaterialApp(
-    title:"Flutter Tutorial",
-    home: new TutorialHome(),
-  ));
-}
+void main() => runApp(MyApp());
 
-class TutorialHome extends StatelessWidget{
+class MyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context){
-    return new Scaffold(
-      appBar: new AppBar(
-        leading: new IconButton(
-          icon:new Icon(Icons.menu),
-          tooltip: "Navigation menu",
-          onPressed: null,
+    var title = 'Web images';
+    return MaterialApp(
+      title: title,
+      home: Scaffold(
+        appBar:AppBar(
+          title: Text(title),
         ),
-        title: new Text('Example title'),
-        actions: <Widget>[
-          new IconButton(
-            icon: new Icon(Icons.search),
-            tooltip: 'Search',
-            onPressed: null,
-          ),
-        ],
-      ),
-      body: new Center(
-        child:new Text("Hello myapp2")
-      ),
-      floatingActionButton: new FloatingActionButton(
-        tooltip:'Add',
-        child:new Icon(Icons.add),
-        onPressed: null,
+        body: Image.network('https://github.com/flutter/website/blob/master/_includes/code/layout/lakes/images/lake.jpg?raw=true'),
       ),
     );
   }
