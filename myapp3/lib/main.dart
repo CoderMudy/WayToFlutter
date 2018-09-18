@@ -58,7 +58,7 @@ class GHFlutterState extends State<GHFlutter>{
     setState((){
       final membersJSON = json.decode(response.body);
       for(var memberJSON in membersJSON){
-        final member = new Member(memberJSON["login"]);
+        final member = new Member(memberJSON["login"],memberJSON["avatar_url"]);
         _members.add(member);
       }
     });
@@ -67,6 +67,10 @@ class GHFlutterState extends State<GHFlutter>{
   Widget _buildRow(int i){
     return new ListTile(
       title: new Text("${_members[i].login}",style: _biggerFont),
+      leading: new CircleAvatar(
+        backgroundColor:Colors.green,
+        backgroundImage:new NetworkImage(_members[i].avatarUrl)//当图片没有加载出来的时候，默认显示绿色背景
+      ),
     );
   }
 }
@@ -74,8 +78,14 @@ class GHFlutterState extends State<GHFlutter>{
 
 class Member {
   final String login;
-  Member(this.login) {//构造函数
+  final String avatarUrl;
+
+  Member(this.login,this.avatarUrl) {//构造函数
     if(login == null){
+      throw new ArgumentError("login error Member canot be null");
+    }
+
+    if(avatarUrl == null){
       throw new ArgumentError("login error Member canot be null");
     }
   }
