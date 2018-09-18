@@ -24,7 +24,7 @@ class GHFlutter extends StatefulWidget{
 
 //GHFlutterState使用GHFlutter的参数扩展状态。
 class GHFlutterState extends State<GHFlutter>{
-  var _members = [];
+  var _members = <Member>[];
   final _biggerFont = const TextStyle(fontSize:18.0);
 
   @override
@@ -34,10 +34,13 @@ class GHFlutterState extends State<GHFlutter>{
         title: new Text(Strings.appTile),
       ),
       body: new ListView.builder(
-        padding: const EdgeInsets.all(16.0),
+        
         itemCount: _members.length,
         itemBuilder: (BuildContext context,int position){
-          return _buildRow(position);
+          //添加分割线
+          if(position.isOdd) return new Divider();
+          final index = position ~/2;
+          return _buildRow(index);
         },
       ),
     );
@@ -53,13 +56,27 @@ class GHFlutterState extends State<GHFlutter>{
     String dataUrl = "https://api.github.com/orgs/raywenderlich/members";
     http.Response response = await http.get(dataUrl);
     setState((){
-      _members = json.decode(response.body);
+      final membersJSON = json.decode(response.body);
+      for(var memberJSON in membersJSON){
+        final member = new Member(memberJSON["login"]);
+        _members.add(member);
+      }
     });
   }
 
   Widget _buildRow(int i){
     return new ListTile(
-      title: new Text("${_members[i]["login"]}",style: _biggerFont),
+      title: new Text("${_members[i].login}",style: _biggerFont),
     );
+  }
+}
+
+
+class Member {
+  final String login;
+  Member(this.login) {//构造函数
+    if(login == null){
+      throw new ArgumentError("login error Member canot be null");
+    }
   }
 }
