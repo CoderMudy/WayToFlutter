@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp>{
       theme: new ThemeData(primarySwatch:Colors.red),
       home: new MyHomePage(
         title:'MyHomePage',
-        counter:counter,
+        count:counter,
         decrementCounter:_decrementCounter,
         incrementCounter: _incrementCounter,
 
